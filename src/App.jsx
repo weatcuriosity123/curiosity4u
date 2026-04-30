@@ -47,7 +47,7 @@ const SERVICES = [
     Icon: Shield,
     iconBg: 'rgba(220,38,38,0.15)',
     color: '#f87171',
-    title: 'Vajra',
+    title: 'VAJRA',
     description: "Find vulnerabilities before attackers do. We simulate real-world attacks on your websites, APIs, and systems to uncover security gaps before they're exploited.",
     tags: ['Penetration Testing', 'Web App Security', 'API Testing', 'Risk Reports'],
     glow: 'rgba(220,38,38,0.08)',
