@@ -35,7 +35,7 @@ const SERVICES = [
     Icon: Code2,
     iconBg: 'rgba(37,99,235,0.15)',
     color: '#60a5fa',
-    title: 'Vistara',
+    title: 'VISTARA',
     description: 'Fast, modern websites that convert — built for businesses in 1–7 days. Mobile-first, SEO-ready, and security-checked before launch.',
     tags: ['Business Websites', 'Landing Pages', 'E-commerce', 'SEO Setup'],
     glow: 'rgba(37,99,235,0.1)',
