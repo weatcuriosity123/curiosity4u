@@ -33,8 +33,8 @@
   "placeholders": [
     { "key": "base-price", "token": "[Base Price / Student]", "page": 7 },
     { "key": "extra-price", "token": "[+ Extra Cost / Student]", "page": 7 },
-    { "key": "contact-name", "token": "Om Khare", "page": 12 },
-    { "key": "contact-phone", "token": "+91 9588-654-379", "page": 12 },
+    { "key": "contact-name", "token": "Curiosity4u Team", "page": 12 },
+    { "key": "contact-phone", "token": "+91 9175484379", "page": 12 },
     { "key": "contact-email", "token": "weatcuriosity@gmail.com or outreach@curiosity4u.in", "page": 12 },
     { "key": "contact-web", "token": "www.curiosity4u.in", "page": 12 }
   ]

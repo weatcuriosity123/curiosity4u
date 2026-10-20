@@ -6,8 +6,8 @@ Before circulating the brochure to college principals, HODs, or school directors
 | :- | :--- | :--- | :--- |
 | 1 | `[Base Price / Student]` | **Page 07** (Non-Persistent Plan A Card) | e.g., `₹299 / student / semester` or `Included in Base Campus License` |
 | 2 | `[+ Extra Cost / Student]` | **Page 07** (Persistent Plan B Card) | e.g., `+ ₹149 / student / semester (1 GB Persistent Home)` |
-| 3 | `Om Khare` | **Page 12** (Back Cover Contact Card) | Contact Person (Designation removed) |
-| 4 | `+91 9588-654-379` | **Page 12** (Back Cover Contact Card) | Official Phone / WhatsApp |
+| 3 | `Curiosity4u Team` | **Page 12** (Back Cover Contact Card) | Contact Person / Team |
+| 4 | `+91 9175484379` | **Page 12** (Back Cover Contact Card) | Official Phone / WhatsApp |
 | 5 | `weatcuriosity@gmail.com or outreach@curiosity4u.in` | **Page 12** (Back Cover Contact Card) | Contact Email Addresses |
 | 6 | `www.curiosity4u.in` | **Page 12** (Back Cover Contact Card) | Company Website |
 
