@@ -9,6 +9,7 @@ import {
 import PraviPage from './PraviPage.jsx';
 import WebDevPage from './WebDevPage.jsx';
 import VAPTPage from './VAPTPage.jsx';
+import VMBroucherPage from './VMBroucherPage.jsx';
 import './index.css';
 
 /* ─── ICON HELPER ─── */
@@ -52,6 +53,18 @@ const SERVICES = [
     tags: ['Penetration Testing', 'Web App Security', 'API Testing', 'Risk Reports'],
     glow: 'rgba(220,38,38,0.08)',
     link: '/vapt',
+    isInternal: true,
+  },
+  {
+    badge: 'Virtual Lab · Deck',
+    Icon: Cpu,
+    iconBg: 'rgba(0,229,255,0.15)',
+    color: '#00e5ff',
+    title: 'Virtual Lab (VM)',
+    description: 'Transform legacy computer labs into modern cloud workstations. Interactive brochure and pitch deck for colleges, schools, and institutions.',
+    tags: ['Interactive Brochure', 'Browser Virtual Lab', 'ROS 2 & Linux', 'Zero Hardware Cost'],
+    glow: 'rgba(0,229,255,0.12)',
+    link: '/VMBroucher',
     isInternal: true,
   },
 ];
@@ -151,6 +164,7 @@ function Navbar() {
         <ul className="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#solutions">Solutions</a></li>
+          <li><a href="/VMBroucher">VM Brochure</a></li>
           {/* <li><a href="#team">Team</a></li> */}
           <li><a href="#contact" className="nav-cta">Contact Us</a></li>
         </ul>
@@ -577,6 +591,10 @@ export default function App() {
       <Route path="/pravi" element={<PraviPage />} />
       <Route path="/webdev" element={<WebDevPage />} />
       <Route path="/vapt" element={<VAPTPage />} />
+      <Route path="/VMBroucher" element={<VMBroucherPage />} />
+      <Route path="/vmbroucher" element={<VMBroucherPage />} />
+      <Route path="/VMBrochure" element={<VMBroucherPage />} />
+      <Route path="/vmbrochure" element={<VMBroucherPage />} />
     </Routes>
   );
 }

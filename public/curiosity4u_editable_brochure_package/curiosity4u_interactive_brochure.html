@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curiosity4U Virtual Lab — Interactive Client Brochure &amp; Deck</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
+    :root {
+      --bg-dark: #070B14;
+      --bg-light: #EEF2F6;
+      --cyan: #00E5FF;
+      --violet: #7C3AED;
+      --amber: #F59E0B;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #050811;
+      color: #F8FAFC;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .brochure-page {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      min-height: 675px;
+      margin: 0 auto 28px auto;
+      border-radius: 20px;
+      padding: 36px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .theme-dark {
+      background: radial-gradient(circle at 85% 15%, #162447 0%, #070B14 65%);
+      color: #F8FAFC;
+      border: 1px solid rgba(0, 229, 255, 0.2);
+    }
+
+    .theme-light {
+      background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+      color: #0F172A;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+    }
+
+    .grad-cyan {
+      background: linear-gradient(90deg, #00E5FF 0%, #38BDF8 50%, #A78BFA 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .grad-light {
+      background: linear-gradient(90deg, #0284C7 0%, #7C3AED 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Template Marketplace Card Flip / Reveal */
+    .template-card {
+      position: relative;
+      cursor: pointer;
+      transition: all 0.22s ease;
+    }
+    .template-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px rgba(2, 132, 199, 0.16);
+    }
+    .template-reveal {
+      display: none;
+    }
+    .template-card.active .template-default,
+    .template-card:hover .template-default {
+      display: none;
+    }
+    .template-card.active .template-reveal,
+    .template-card:hover .template-reveal {
+      display: block;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    @media print {
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      .no-print, nav, #deck-controls, #editor-drawer {
+        display: none !important;
+      }
+      html, body {
+        background: #070B14 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 100% !important;
+        overflow: visible !important;
+      }
+      #brochure-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: none !important;
+      }
+      .brochure-page {
+        max-width: none !important;
+        width: 100% !important;
+        height: 100vh !important;
+        min-height: 100vh !important;
+        max-height: 100vh !important;
+        margin: 0 !important;
+        padding: 24px 36px !important;
+        border-radius: 0 !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        box-shadow: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+      }
+      .brochure-page:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+      @page {
+        size: landscape;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- ===================================================================
+       STICKY INTERACTIVE TOP BAR (TOC + PRESENTATION MODE + EDIT DRAWER)
+       =================================================================== -->
+  <nav class="no-print sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-cyan-500/20 px-4 py-2.5">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <!-- Brand -->
+      <div class="flex items-center gap-3">
+        <img src="logo_white_clean.png" alt="Curiosity4U" class="h-8 w-auto">
+        <div>
+          <span class="font-extrabold tracking-wider text-sm text-white">CURIOSITY4U</span>
+          <span class="hidden sm:inline-block text-xs text-cyan-400 ml-2 font-medium">Virtual Lab Brochure</span>
+        </div>
+        <a href="/" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 ml-2 rounded-lg text-xs font-semibold text-slate-300 hover:text-white bg-slate-900/90 hover:bg-slate-800 border border-slate-700/70 transition shadow-sm">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          Back to Website
+        </a>
+      </div>
+
+      <!-- Page Jumper Pills -->
+      <div id="toc-nav" class="flex items-center gap-1 overflow-x-auto max-w-full py-1 text-xs">
+        <button data-page="1" class="toc-btn px-2.5 py-1 rounded-full bg-cyan-500 text-slate-950 font-bold">01 Cover</button>
+        <button data-page="2" class="toc-btn px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700">02 Shift</button>
+        <button data-page="3" class="toc-btn px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700">03 Flow</button>
+        <button data-page="4" class="toc-btn px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700">04 Templates</button>
+        <button data-page="5" class="toc-btn px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700">05 Cyber</button>
+        <button data-page="6" class="toc-btn px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700">06 Robotics</button>
+        <button data-page="7" class="toc-btn px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700">07 Storage</button>
+        <button data-page="8" class="toc-btn px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700">08 Admin</button>
+        <button data-page="9" class="toc-btn px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700">09 Scale</button>
+        <button data-page="10" class="toc-btn px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700">10 Security</button>
+        <button data-page="11" class="toc-btn px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700">11 Pilot</button>
+        <button data-page="12" class="toc-btn px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700">12 CTA</button>
+      </div>
+
+      <!-- Mode & Edit Controls -->
+      <div class="flex items-center gap-2">
+        <button id="toggle-mode-btn" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-cyan-300 border border-cyan-500/30">
+          Slide Deck Mode
+        </button>
+        <button id="open-editor-btn" class="px-3 py-1.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-xs font-bold text-white">
+          ✎ Edit Placeholders
+        </button>
+        <button id="print-btn" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-xs font-extrabold text-slate-950 flex items-center gap-1.5 shadow-md">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+          Print / PDF
+        </button>
+        <a href="/curiosity4u_editable_brochure_package/brochure_12p_print_source.html" target="_blank" rel="noopener noreferrer" title="Open Clean 12-Page Print Source in New Tab" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-cyan-300 text-xs font-semibold border border-slate-700 flex items-center gap-1">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Direct PDF Source
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Slide Deck Mode Controls Bar (Shown only when in Deck Mode) -->
+  <div id="deck-controls" class="no-print hidden bg-slate-900/95 border-b border-slate-800 py-2 px-4">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+      <button id="prev-slide-btn" class="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white">← Previous Page</button>
+      <span id="slide-indicator" class="text-xs font-bold text-cyan-400 mono">Page 01 / 12</span>
+      <button id="next-slide-btn" class="px-4 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-xs font-extrabold text-slate-950">Next Page →</button>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       LIVE PLACEHOLDER CUSTOMIZATION DRAWER
+       =================================================================== -->
+  <div id="editor-drawer" class="no-print hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-end">
+    <div class="bg-slate-900 border-l border-cyan-500/30 w-full max-w-md h-full p-6 overflow-y-auto flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+          <div>
+            <h3 class="text-lg font-extrabold text-white">Customize Brochure Placeholders</h3>
+            <p class="text-xs text-slate-400">Updates apply live across all 12 pages before printing or sharing.</p>
+          </div>
+          <button id="close-editor-btn" class="text-slate-400 hover:text-white text-xl font-bold px-2">✕</button>
+        </div>
+
+        <div class="space-y-4 mt-5 text-xs">
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Non-Persistent Base Price (Page 7)</label>
+            <input id="inp-base-price" type="text" value="[Base Price / Student]" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Persistent Storage Upgrade Price (Page 7)</label>
+            <input id="inp-extra-price" type="text" value="[+ Extra Cost / Student]" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Contact Person (Page 12)</label>
+            <input id="inp-contact-name" type="text" value="Om Khare" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Phone / WhatsApp Number (Page 12)</label>
+            <input id="inp-contact-phone" type="text" value="+91 9588-654-379" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Official Email Address (Page 12)</label>
+            <input id="inp-contact-email" type="text" value="weatcuriosity@gmail.com or outreach@curiosity4u.in" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Company Website (Page 12)</label>
+            <input id="inp-contact-web" type="text" value="www.curiosity4u.in" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white">
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-800 flex gap-3">
+        <button id="apply-editor-btn" class="flex-1 py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold text-xs">
+          ✓ Apply Live Changes
+        </button>
+        <button id="reset-editor-btn" class="px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs">
+          Reset
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MAIN 12-PAGE BROCHURE CONTAINER
+       =================================================================== -->
+  <main id="brochure-container" class="px-4 py-6">
+
+    <!-- PAGE 1: COVER (DARK) -->
+    <section id="bpage-1" data-page-num="1" class="brochure-page theme-dark">
+      <header class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img src="logo_white_clean.png" alt="Curiosity4U Logo" class="h-14 w-auto">
+          <div>
+            <div class="font-black text-lg tracking-wider text-white">CURIOSITY4U</div>
+            <div class="text-xs text-cyan-400 italic">Your Curiosity, Our Solutions</div>
+          </div>
+        </div>
+        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
+          Client Product Brochure · 01 / 12
+        </span>
+      </header>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto py-6">
+        <div class="lg:col-span-6 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-xs font-bold uppercase tracking-widest">
+            ⚡ Browser-Based Virtual Labs for Colleges &amp; Schools
+          </div>
+          <h1 class="text-4xl sm:text-5xl font-black leading-tight tracking-tight text-white">
+            Every lab.<br>
+            Every student.<br>
+            <span class="grad-cyan">Any device.</span><br>
+            Ready in seconds.
+          </h1>
+          <p class="text-slate-300 text-base leading-relaxed max-w-xl">
+            No installs, no hardware refresh, any device. Each lab comes pre-loaded with the exact tools its domain needs.
+          </p>
+          <div class="flex flex-wrap items-center gap-4 pt-1">
+            <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm shadow-lg shadow-amber-500/25 transition">
+              Launch Live Demo → vm.curiosity4u.in/welcome
+            </a>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-2 text-xs font-mono text-cyan-300">
+            <span class="px-2.5 py-1 rounded bg-slate-900/90 border border-cyan-500/30">✓ Zero Installation</span>
+            <span class="px-2.5 py-1 rounded bg-slate-900/90 border border-cyan-500/30">✓ On-Premise or Cloud</span>
+            <span class="px-2.5 py-1 rounded bg-slate-900/90 border border-cyan-500/30">✓ Exam Lockdown</span>
+            <span class="px-2.5 py-1 rounded bg-slate-900/90 border border-cyan-500/30">✓ Laptop · Chromebook · Tablet · Phone</span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 space-y-4">
+          <div class="rounded-xl overflow-hidden border border-cyan-500/40 bg-slate-950 shadow-2xl">
+            <div class="bg-slate-900 px-3 py-2 flex items-center gap-2 border-b border-slate-800 text-xs font-mono text-slate-400">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span class="ml-2 text-slate-200">https://vm.curiosity4u.in/welcome</span>
+            </div>
+            <img src="ui_landing.png" alt="Curiosity Lab Welcome Portal" class="w-full h-auto block">
+          </div>
+
+          <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 p-3.5 rounded-xl bg-slate-900/90 border border-cyan-500/30 hover:border-amber-400 transition">
+            <img src="qr_demo.png" alt="Live Demo QR Code" class="w-20 h-20 rounded-lg bg-white p-1 shrink-0">
+            <div>
+              <div class="text-xs font-extrabold uppercase tracking-wider text-amber-400">Scan or Click to Try a Live Lab Now</div>
+              <div class="text-sm font-bold text-white mono">https://vm.curiosity4u.in/welcome</div>
+              <div class="text-xs text-slate-400 mt-0.5">Open a real Linux desktop &amp; IDE in your browser in under 3 seconds.</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <footer class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-800">
+        <span>CURIOSITY4U · NEXT-GENERATION VIRTUAL LAB PLATFORM</span>
+        <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="text-amber-400 font-bold hover:underline">Live Demo: vm.curiosity4u.in/welcome</a>
+        <span>Page 01 / 12</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 2: THE PROBLEM -> THE SHIFT (LIGHT) -->
+    <section id="bpage-2" data-page-num="2" class="brochure-page theme-light">
+      <header class="flex items-center justify-between">
+        <div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-sky-500/10 text-sky-700 border border-sky-500/30">02 · The Shift</span>
+          <h2 class="text-3xl sm:text-4xl font-black mt-2 text-slate-900">Stop maintaining PCs. <span class="grad-light">Start running labs.</span></h2>
+        </div>
+        <img src="logo_dark_clean.png" alt="Curiosity4U" class="h-11 w-auto">
+      </header>
+
+      <div class="my-auto py-4 space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Old Labs -->
+          <div class="bg-white rounded-2xl p-6 border-t-4 border-rose-500 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-rose-600">✗ Traditional Physical Labs</span>
+              <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-rose-50 text-rose-700">High Overhead</span>
+            </div>
+            <h3 class="text-xl font-extrabold text-slate-900 mb-3">Constant Capex &amp; Broken Setups</h3>
+            <ul class="space-y-2.5 text-sm text-slate-700">
+              <li>• <strong>Expensive Hardware Upgrades:</strong> Old desktops freeze on ROS 2, Docker, or cybersecurity tools.</li>
+              <li>• <strong>Days Lost to OS Re-Imaging:</strong> Lab staff manually install compilers and fix broken packages every semester.</li>
+              <li>• <strong>Locked to Physical Rooms:</strong> Students cannot access lab software from hostels or home laptops.</li>
+              <li>• <strong>Exam Vulnerability:</strong> Shared local folders and USB ports make practical tests hard to secure.</li>
+            </ul>
+          </div>
+
+          <!-- Curiosity4U -->
+          <div class="bg-white rounded-2xl p-6 border-t-4 border-sky-600 shadow-md ring-1 ring-sky-500/20">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-sky-600">✓ Curiosity4U Virtual Lab</span>
+              <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-sky-50 text-sky-700 font-bold">Zero Maintenance</span>
+            </div>
+            <h3 class="text-xl font-extrabold text-slate-900 mb-3">Your Students Start Coding in Seconds</h3>
+            <ul class="space-y-2.5 text-sm text-slate-800">
+              <li>• <strong>No Hardware Refresh Needed:</strong> Heavy compute runs on the server; any browser streams the desktop smoothly.</li>
+              <li>• <strong>Pre-Loaded Domain Templates:</strong> Every student opens a verified, identical workspace in one click.</li>
+              <li>• <strong>Sized to Your Timetable:</strong> Provision only for active concurrent seats—not total campus headcount.</li>
+              <li>• <strong>Cheat-Proof Exam Mode:</strong> Sealed containers, internet lockdown, and automatic session wipe.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3 Stats -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <div class="bg-white rounded-xl p-5 text-center border border-slate-200 shadow-sm">
+            <div class="text-3xl font-black text-sky-600">0 Installs</div>
+            <div class="text-sm font-bold text-slate-900 mt-1">100% Browser-Native</div>
+            <div class="text-xs text-slate-500 mt-0.5">No client apps or plugins required on student devices.</div>
+          </div>
+          <div class="bg-white rounded-xl p-5 text-center border border-slate-200 shadow-sm">
+            <div class="text-3xl font-black text-violet-600">&lt; 3 Seconds</div>
+            <div class="text-sm font-bold text-slate-900 mt-1">Instant Lab Launch</div>
+            <div class="text-xs text-slate-500 mt-0.5">Zero class time wasted on environment setup.</div>
+          </div>
+          <div class="bg-white rounded-xl p-5 text-center border border-slate-200 shadow-sm">
+            <div class="text-3xl font-black text-emerald-600">Any Device</div>
+            <div class="text-sm font-bold text-slate-900 mt-1">Laptop · Chromebook · Tablet · Phone</div>
+            <div class="text-xs text-slate-500 mt-0.5">Works on existing campus PCs and student devices alike.</div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="flex items-center justify-between text-xs text-slate-600 pt-3 border-t border-slate-300">
+        <span>Question answered: Why replace legacy PC lab workflows?</span>
+        <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="text-amber-600 font-bold hover:underline">Scan or click to test live → vm.curiosity4u.in/welcome</a>
+        <span>Page 02 / 12</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 3: HOW IT WORKS (DARK) -->
+    <section id="bpage-3" data-page-num="3" class="brochure-page theme-dark">
+      <header class="flex items-center justify-between">
+        <div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">03 · How It Works</span>
+          <h2 class="text-3xl sm:text-4xl font-black mt-2 text-white">From setup to coding <span class="grad-cyan">in four steps.</span></h2>
+        </div>
+        <img src="logo_white_clean.png" alt="Curiosity4U" class="h-11 w-auto">
+      </header>
+
+      <div class="my-auto py-4 space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-slate-900/90 border border-cyan-500/30 rounded-xl p-4">
+            <div class="w-9 h-9 rounded-lg bg-cyan-500/20 text-cyan-300 font-black flex items-center justify-center mb-3">01</div>
+            <h3 class="font-bold text-base text-white mb-1">Admin Picks Template</h3>
+            <p class="text-xs text-slate-300">Select Cybersecurity, Robotics, CSE, AI, or a custom syllabus image.</p>
+          </div>
+          <div class="bg-slate-900/90 border border-violet-500/30 rounded-xl p-4">
+            <div class="w-9 h-9 rounded-lg bg-violet-500/20 text-violet-300 font-black flex items-center justify-center mb-3">02</div>
+            <h3 class="font-bold text-base text-white mb-1">Adds Students</h3>
+            <p class="text-xs text-slate-300">Bulk-import student emails and choose ephemeral or persistent storage.</p>
+          </div>
+          <div class="bg-slate-900/90 border border-amber-500/30 rounded-xl p-4">
+            <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-300 font-black flex items-center justify-center mb-3">03</div>
+            <h3 class="font-bold text-base text-white mb-1">Students Log In</h3>
+            <p class="text-xs text-slate-300">Students open the web link on any browser and enter their classroom code.</p>
+          </div>
+          <div class="bg-slate-900/90 border border-emerald-500/30 rounded-xl p-4">
+            <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-300 font-black flex items-center justify-center mb-3">04</div>
+            <h3 class="font-bold text-base text-white mb-1">Lab Ready in Seconds</h3>
+            <p class="text-xs text-slate-300">Full Linux desktop &amp; IDE opens immediately—with instant session resume.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-7 rounded-xl overflow-hidden border border-cyan-500/30 bg-slate-950">
+            <div class="bg-slate-900 px-3 py-1.5 text-xs font-mono text-slate-400 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span class="ml-2">Student Classroom Launch &amp; 32-Char Session Resume</span>
+            </div>
+            <img src="ui_launch.png" alt="Student Launch Portal" class="w-full max-h-64 object-cover object-center block">
+          </div>
+
+          <div class="lg:col-span-5 bg-slate-900/90 border border-slate-800 rounded-xl p-6 space-y-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">Built-In Disconnect Protection</span>
+            <h3 class="text-xl font-extrabold text-white">Closed tab? Dropped Wi-Fi? Resume in one click.</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Students never lose active work if their browser closes. They enter their saved 32-character Session ID or click <strong>Reconnect Desktop</strong> to pick up right where they left off.
+            </p>
+            <div class="pt-2">
+              <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="inline-block px-5 py-2.5 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs">
+                Try Student Login → vm.curiosity4u.in/welcome
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-800">
+        <span>4-Step Classroom Onboarding Flow</span>
+        <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="text-amber-400 font-bold hover:underline">Try a live lab → vm.curiosity4u.in/welcome</a>
+        <span>Page 03 / 12</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 4: LAB TEMPLATES MARKETPLACE (LIGHT — INTERACTIVE HOVER/TAP REVEALS) -->
+    <section id="bpage-4" data-page-num="4" class="brochure-page theme-light">
+      <header class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-sky-500/10 text-sky-700 border border-sky-500/30">04 · Template Marketplace</span>
+          <h2 class="text-3xl sm:text-4xl font-black mt-2 text-slate-900">Pre-loaded templates <span class="grad-light">for every domain.</span></h2>
+        </div>
+        <div class="text-xs font-bold bg-slate-900 text-cyan-300 px-3.5 py-2 rounded-full">
+          💡 Hover or tap any card to inspect pre-installed syllabus tools
+        </div>
+      </header>
+
+      <div class="my-auto py-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Card 1 -->
+        <div class="template-card bg-white rounded-xl p-4 border-t-4 border-cyan-500 shadow-sm">
+          <div class="template-default">
+            <div class="font-extrabold text-base text-slate-900 mb-1">🛡️ Cybersecurity Lab</div>
+            <p class="text-xs text-slate-600 mb-3">Ethical hacking, network auditing, and penetration testing in a sealed sandbox.</p>
+            <div class="flex flex-wrap gap-1 text-xs font-mono">
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Kali Toolset</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Wireshark</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Nmap</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Metasploit</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Burp Suite</span>
+            </div>
+          </div>
+          <div class="template-reveal">
+            <div class="text-xs font-extrabold uppercase text-cyan-700 mb-1">Pre-Installed Stack &amp; Labs</div>
+            <p class="text-xs text-slate-700 mb-2">Includes John the Ripper, Hydra, TShark, tcpdump, Nikto, and isolated target containers.</p>
+            <div class="p-2 rounded bg-slate-900 text-emerald-400 font-mono text-[11px]">$ nmap -sV 10.20.0.15</div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="template-card bg-white rounded-xl p-4 border-t-4 border-violet-600 shadow-sm">
+          <div class="template-default">
+            <div class="font-extrabold text-base text-slate-900 mb-1">🚁 Robotics &amp; Drone Lab</div>
+            <p class="text-xs text-slate-600 mb-3">Autonomous flight control, 3D physics simulation, and kinematics.</p>
+            <div class="flex flex-wrap gap-1 text-xs font-mono">
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">ROS 2</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Gazebo</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">ArduPilot</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">MAVProxy</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">RViz2</span>
+            </div>
+          </div>
+          <div class="template-reveal">
+            <div class="text-xs font-extrabold uppercase text-violet-700 mb-1">Pre-Installed Stack &amp; Labs</div>
+            <p class="text-xs text-slate-700 mb-2">Full SITL quadcopter physics, URDF robot arms, lidar point-cloud visualizers, and colcon build tools.</p>
+            <div class="p-2 rounded bg-slate-900 text-cyan-300 font-mono text-[11px]">$ ros2 launch gazebo_ros ...</div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="template-card bg-white rounded-xl p-4 border-t-4 border-sky-600 shadow-sm">
+          <div class="template-default">
+            <div class="font-extrabold text-base text-slate-900 mb-1">💻 CSE / Programming</div>
+            <p class="text-xs text-slate-600 mb-3">Data structures, operating systems, compilers, and full-stack development.</p>
+            <div class="flex flex-wrap gap-1 text-xs font-mono">
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">GCC / G++</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Python 3</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Java</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Node.js</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">VS Code</span>
+            </div>
+          </div>
+          <div class="template-reveal">
+            <div class="text-xs font-extrabold uppercase text-sky-700 mb-1">Pre-Installed Stack &amp; Labs</div>
+            <p class="text-xs text-slate-700 mb-2">Includes Clang, Make, CMake, GDB, OpenJDK, Maven, Git, and GitHub CLI ready for coding exams.</p>
+            <div class="p-2 rounded bg-slate-900 text-amber-300 font-mono text-[11px]">$ g++ main.cpp &amp;&amp; ./a.out</div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="template-card bg-white rounded-xl p-4 border-t-4 border-emerald-600 shadow-sm">
+          <div class="template-default">
+            <div class="font-extrabold text-base text-slate-900 mb-1">🌐 Networking Lab</div>
+            <p class="text-xs text-slate-600 mb-3">Packet inspection, routing tables, virtual subnets, and socket programming.</p>
+            <div class="flex flex-wrap gap-1 text-xs font-mono">
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Wireshark</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">TShark</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">tcpdump</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">iproute2</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">netcat</span>
+            </div>
+          </div>
+          <div class="template-reveal">
+            <div class="text-xs font-extrabold uppercase text-emerald-700 mb-1">Pre-Installed Stack &amp; Labs</div>
+            <p class="text-xs text-slate-700 mb-2">Inspect TCP/UDP handshakes, DNS resolution, traceroute hops, and custom firewall rules.</p>
+            <div class="p-2 rounded bg-slate-900 text-emerald-400 font-mono text-[11px]">$ tcpdump -i eth0 port 80</div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="template-card bg-white rounded-xl p-4 border-t-4 border-amber-500 shadow-sm">
+          <div class="template-default">
+            <div class="font-extrabold text-base text-slate-900 mb-1">🧠 Data Science &amp; AI</div>
+            <p class="text-xs text-slate-600 mb-3">Data wrangling, exploratory visualization, and machine learning models.</p>
+            <div class="flex flex-wrap gap-1 text-xs font-mono">
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">JupyterLab</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">NumPy</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Pandas</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Matplotlib</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Scikit-Learn</span>
+            </div>
+          </div>
+          <div class="template-reveal">
+            <div class="text-xs font-extrabold uppercase text-amber-700 mb-1">Pre-Installed Stack &amp; Labs</div>
+            <p class="text-xs text-slate-700 mb-2">Zero conda environment conflicts. Pre-loaded notebooks and sample datasets ready for immediate execution.</p>
+            <div class="p-2 rounded bg-slate-900 text-amber-300 font-mono text-[11px]">import pandas as pd, numpy</div>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="template-card bg-white rounded-xl p-4 border-t-4 border-pink-600 shadow-sm">
+          <div class="template-default">
+            <div class="font-extrabold text-base text-slate-900 mb-1">🗄️ Database Systems</div>
+            <p class="text-xs text-slate-600 mb-3">Relational SQL queries, ACID transactions, indexing, and NoSQL stores.</p>
+            <div class="flex flex-wrap gap-1 text-xs font-mono">
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">PostgreSQL</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">MySQL</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">SQLite</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Redis</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">DBeaver</span>
+            </div>
+          </div>
+          <div class="template-reveal">
+            <div class="text-xs font-extrabold uppercase text-pink-700 mb-1">Pre-Installed Stack &amp; Labs</div>
+            <p class="text-xs text-slate-700 mb-2">Local database servers and CLI/GUI clients pre-initialized with university practice schemas.</p>
+            <div class="p-2 rounded bg-slate-900 text-pink-300 font-mono text-[11px]">SELECT * FROM enrollments;</div>
+          </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="template-card bg-white rounded-xl p-4 border-t-4 border-teal-600 shadow-sm">
+          <div class="template-default">
+            <div class="font-extrabold text-base text-slate-900 mb-1">🔌 Embedded &amp; IoT</div>
+            <p class="text-xs text-slate-600 mb-3">Firmware cross-compilation, MQTT telemetry brokers, and edge logic.</p>
+            <div class="flex flex-wrap gap-1 text-xs font-mono">
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">PlatformIO</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Arduino CLI</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">Mosquitto</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">ARM GCC</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded border">GDB</span>
+            </div>
+          </div>
+          <div class="template-reveal">
+            <div class="text-xs font-extrabold uppercase text-teal-700 mb-1">Pre-Installed Stack &amp; Labs</div>
+            <p class="text-xs text-slate-700 mb-2">Simulate IoT sensor publish/subscribe pipelines and compile embedded C/C++ firmware cleanly.</p>
+            <div class="p-2 rounded bg-slate-900 text-teal-300 font-mono text-[11px]">$ mosquitto_sub -t "iot/#"</div>
+          </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="template-card bg-slate-900 text-white rounded-xl p-4 border-t-4 border-amber-400 shadow-sm">
+          <div class="template-default">
+            <div class="font-extrabold text-base text-amber-400 mb-1">⚙️ Build Your Own</div>
+            <p class="text-xs text-slate-300 mb-3">Customize any template with your college's exact packages and datasets.</p>
+            <div class="flex flex-wrap gap-1 text-xs font-mono text-cyan-300">
+              <span class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700">Custom Image</span>
+              <span class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700">Syllabus Lock</span>
+              <span class="px-2 py-0.5 bg-slate-800 rounded border border-slate-700">Admin Selectable</span>
+            </div>
+          </div>
+          <div class="template-reveal">
+            <div class="text-xs font-extrabold uppercase text-amber-400 mb-1">Tailored to Your Syllabus</div>
+            <p class="text-xs text-slate-200 mb-2">Tell us your university syllabus list—we bake your custom libraries directly into a 1-click template.</p>
+            <div class="p-2 rounded bg-black text-amber-300 font-mono text-[11px]">100% Admin Configurable</div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="flex items-center justify-between text-xs text-slate-600 pt-3 border-t border-slate-300">
+        <span>Templates are selectable and customizable by the college admin.</span>
+        <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="text-amber-600 font-bold hover:underline">Test a template live → vm.curiosity4u.in/welcome</a>
+        <span>Page 04 / 12</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 5: SPOTLIGHT: CYBERSECURITY LAB (DARK) -->
+    <section id="bpage-5" data-page-num="5" class="brochure-page theme-dark">
+      <header class="flex items-center justify-between">
+        <div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">05 · Spotlight: Cybersecurity Lab</span>
+          <h2 class="text-3xl sm:text-4xl font-black mt-2 text-white">Train defenders in a <span class="grad-cyan">safe sandbox.</span></h2>
+        </div>
+        <img src="logo_dark_clean.png" alt="Curiosity4U" class="h-11 w-auto">
+      </header>
+
+      <div class="my-auto py-4 grid grid-cols-1 lg:grid-cols-12 gap-7 items-center">
+        <div class="lg:col-span-7 rounded-xl overflow-hidden border border-cyan-500/40 bg-slate-950 shadow-2xl">
+          <div class="bg-slate-900 px-3 py-2 text-xs font-mono text-cyan-300 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span class="ml-2">cyber-sec-sandbox · root@kali-lab:~ (Isolated VLAN)</span>
+          </div>
+          <img src="cyber_lab.jpg" alt="Cybersecurity Lab Visual" class="w-full max-h-72 object-cover block">
+          <div class="bg-black px-4 py-2.5 font-mono text-xs text-emerald-400 border-t border-cyan-500/20">
+            $ nmap -sV --script vuln 10.20.0.15 &amp;&amp; tshark -i eth0 -f "tcp port 443"
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-3.5">
+          <div class="flex flex-wrap gap-1.5 text-xs font-mono text-cyan-300">
+            <span class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30">Kali-Style Toolset</span>
+            <span class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30">Wireshark</span>
+            <span class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30">Nmap</span>
+            <span class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30">Metasploit</span>
+            <span class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30">Burp Suite</span>
+            <span class="px-2.5 py-1 rounded bg-cyan-500/10 border border-cyan-500/30">John the Ripper</span>
+          </div>
+
+          <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4">
+            <h3 class="font-bold text-cyan-400 text-sm mb-1">Zero Risk to Your Campus Network</h3>
+            <p class="text-xs text-slate-300">Students practice real packet inspection and penetration testing inside sealed containers that never touch production servers.</p>
+          </div>
+          <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4">
+            <h3 class="font-bold text-cyan-400 text-sm mb-1">No Antivirus Blocks on Student PCs</h3>
+            <p class="text-xs text-slate-300">All offensive security binaries execute inside the remote container—bypassing local laptop OS restrictions.</p>
+          </div>
+          <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4">
+            <h3 class="font-bold text-cyan-400 text-sm mb-1">One-Click Clean Reset</h3>
+            <p class="text-xs text-slate-300">Every new session boots a pristine image in seconds—ready for the next class batch.</p>
+          </div>
+        </div>
+      </div>
+
+      <footer class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-800">
+        <span>Cybersecurity Lab Template · Pre-installed &amp; Sandboxed</span>
+        <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="text-amber-400 font-bold hover:underline">Launch live demo → vm.curiosity4u.in/welcome</a>
+        <span>Page 05 / 12</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 6: SPOTLIGHT: ROBOTICS & DRONE LAB (DARK) -->
+    <section id="bpage-6" data-page-num="6" class="brochure-page theme-dark">
+      <header class="flex items-center justify-between">
+        <div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-violet-500/20 text-violet-300 border border-violet-500/40">06 · Spotlight: Robotics &amp; Drone Lab</span>
+          <h2 class="text-3xl sm:text-4xl font-black mt-2 text-white">Simulate drones without <span class="grad-cyan">costly workstations.</span></h2>
+        </div>
+        <img src="logo_white_clean.png" alt="Curiosity4U" class="h-11 w-auto">
+      </header>
+
+      <div class="my-auto py-4 grid grid-cols-1 lg:grid-cols-12 gap-7 items-center">
+        <div class="lg:col-span-5 space-y-3.5">
+          <div class="flex flex-wrap gap-1.5 text-xs font-mono text-violet-300">
+            <span class="px-2.5 py-1 rounded bg-violet-500/15 border border-violet-500/30">ROS 2</span>
+            <span class="px-2.5 py-1 rounded bg-violet-500/15 border border-violet-500/30">Gazebo 3D</span>
+            <span class="px-2.5 py-1 rounded bg-violet-500/15 border border-violet-500/30">ArduPilot</span>
+            <span class="px-2.5 py-1 rounded bg-violet-500/15 border border-violet-500/30">MAVProxy</span>
+            <span class="px-2.5 py-1 rounded bg-violet-500/15 border border-violet-500/30">RViz2</span>
+          </div>
+
+          <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4">
+            <h3 class="font-bold text-violet-300 text-sm mb-1">Eliminate Weeks of Broken ROS Setup</h3>
+            <p class="text-xs text-slate-300">ROS 2, Gazebo, and ArduPilot are pre-compiled and version-matched so students write autonomy code immediately.</p>
+          </div>
+          <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4">
+            <h3 class="font-bold text-violet-300 text-sm mb-1">Smooth 3D Simulation on Any Laptop</h3>
+            <p class="text-xs text-slate-300">Physics and lidar rendering run on your campus server while students control drones from basic laptops or Chromebooks.</p>
+          </div>
+          <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4">
+            <h3 class="font-bold text-violet-300 text-sm mb-1">Risk-Free Flight Testing</h3>
+            <p class="text-xs text-slate-300">Test waypoint navigation and MAVLink telemetry in virtual physics before flying real hardware.</p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 rounded-xl overflow-hidden border border-violet-500/40 bg-slate-950 shadow-2xl">
+          <div class="bg-slate-900 px-3 py-2 text-xs font-mono text-violet-300 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span class="ml-2">robotics-drone-sim · ROS 2 + Gazebo + ArduPilot SITL</span>
+          </div>
+          <img src="robotics_lab.jpg" alt="Robotics and Drone Simulation" class="w-full max-h-72 object-cover block">
+          <div class="bg-black px-4 py-2.5 font-mono text-xs text-sky-400 border-t border-violet-500/20">
+            $ ros2 launch ardupilot_gazebo iris_runway.launch.py &amp;&amp; mavproxy.py --master tcp:127.0.0.1:5760
+          </div>
+        </div>
+      </div>
+
+      <footer class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-800">
+        <span>Robotics &amp; Autonomous Drone Lab Template</span>
+        <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="text-amber-400 font-bold hover:underline">Test in your browser → vm.curiosity4u.in/welcome</a>
+        <span>Page 06 / 12</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 7: CHOOSE YOUR STORAGE (LIGHT) -->
+    <section id="bpage-7" data-page-num="7" class="brochure-page theme-light">
+      <header class="flex items-center justify-between">
+        <div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-sky-500/10 text-sky-700 border border-sky-500/30">07 · Choose Your Storage</span>
+          <h2 class="text-3xl sm:text-4xl font-black mt-2 text-slate-900">Two storage plans <span class="grad-light">built for your courses.</span></h2>
+        </div>
+        <img src="logo_dark_clean.png" alt="Curiosity4U" class="h-11 w-auto">
+      </header>
+
+      <div class="my-auto py-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Non-Persistent -->
+        <div class="bg-white rounded-2xl p-6 border-t-4 border-sky-600 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-sky-100 text-sky-800">⚡ Non-Persistent (Ephemeral)</span>
+              <span class="text-sm font-black text-slate-900 mono" data-bind="base-price">[Base Price / Student]</span>
+            </div>
+            <h3 class="text-2xl font-black text-slate-900 mb-1">Clean Slate Every Session</h3>
+            <p class="text-xs font-bold text-sky-700 mb-4">Best for: Practical exams, coding tests, and shared daily practice labs.</p>
+            <ul class="space-y-2.5 text-sm text-slate-700">
+              <li>• <strong>Auto-Wiped on Exit:</strong> All files and history erase automatically when the session ends.</li>
+              <li>• <strong>100% Exam Integrity:</strong> Next student batch never sees files left behind by previous students.</li>
+              <li>• <strong>Zero Disk Bloat:</strong> Campus server storage stays lean all year.</li>
+              <li>• <strong>Manual Export Ready:</strong> Students can download work before ending practice sessions.</li>
+            </ul>
+          </div>
+          <div class="mt-5 p-3 rounded-lg bg-slate-100 text-xs text-slate-700 font-semibold">
+            ✓ Included in Base Plan · Zero persistent disk overhead
+          </div>
+        </div>
+
+        <!-- Persistent -->
+        <div class="bg-white rounded-2xl p-6 border-t-4 border-violet-600 shadow-md ring-1 ring-violet-500/20 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-violet-100 text-violet-800">💾 Persistent Home Storage</span>
+              <span class="text-sm font-black text-violet-700 mono" data-bind="extra-price">[+ Extra Cost / Student]</span>
+            </div>
+            <h3 class="text-2xl font-black text-slate-900 mb-1">Student Files Saved Across Sessions</h3>
+            <p class="text-xs font-bold text-violet-700 mb-4">Best for: Semester-long coursework, capstones, and multi-week projects.</p>
+            <ul class="space-y-2.5 text-sm text-slate-800">
+              <li>• <strong>Automatic Home Mount:</strong> Student <code>/home</code> folder persists and reloads on every login.</li>
+              <li>• <strong>Enforced Per-Student Quotas:</strong> Built-in Disk Guard prevents runaway storage abuse.</li>
+              <li>• <strong>Live Quota Meter:</strong> Session bar shows real-time usage (<code>Saved home · 203 / 1024 MiB used</code>).</li>
+              <li>• <strong>Automated Backups:</strong> Snapshot protection for semester-long student portfolios.</li>
+            </ul>
+          </div>
+          <div class="mt-5 p-3 rounded-lg bg-violet-50 text-xs text-violet-900 font-semibold">
+            ★ Optional Per-Student Upgrade · Mix both plans across classrooms
+          </div>
+        </div>
+      </div>
+
+      <footer class="flex items-center justify-between text-xs text-slate-600 pt-3 border-t border-slate-300">
+        <span>Click "Edit Placeholders" in the top bar to insert your custom institutional pricing.</span>
+        <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="text-amber-600 font-bold hover:underline">Test both modes → vm.curiosity4u.in/welcome</a>
+        <span>Page 07 / 12</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 8: ADMIN CONTROL CENTER (DARK) -->
+    <section id="bpage-8" data-page-num="8" class="brochure-page theme-dark">
+      <header class="flex items-center justify-between">
+        <div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">08 · Admin Control Center</span>
+          <h2 class="text-3xl sm:text-4xl font-black mt-2 text-white">Total classroom control <span class="grad-cyan">from one screen.</span></h2>
+        </div>
+        <img src="logo_white_clean.png" alt="Curiosity4U" class="h-11 w-auto">
+      </header>
+
+      <div class="my-auto py-4 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <div class="lg:col-span-7">
+          <div class="rounded-xl overflow-hidden border border-cyan-500/40 bg-slate-950 shadow-2xl">
+            <div class="bg-slate-900 px-3 py-2 text-xs font-mono text-slate-300 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span class="ml-2">Live Session Bar &amp; Admin Governance — cse-test (28:59 remaining)</span>
+            </div>
+            <img src="ui_desktop_rich.png" alt="Admin Control Panel & Live Session" class="w-full h-auto block">
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-3">
+          <div class="bg-slate-900/90 border border-cyan-500/30 rounded-xl p-4">
+            <div class="text-sm font-extrabold text-cyan-400 mb-1">① Add or Remove Students (Bulk Import)</div>
+            <p class="text-xs text-slate-300">Upload student email lists in one click. Grant or revoke classroom access codes anytime.</p>
+          </div>
+          <div class="bg-slate-900/90 border border-violet-500/30 rounded-xl p-4">
+            <div class="text-sm font-extrabold text-violet-300 mb-1">② Start, Stop &amp; Monitor Live Sessions</div>
+            <p class="text-xs text-slate-300">Track active student containers, countdown timers, and quota usage—or terminate idle labs.</p>
+          </div>
+          <div class="bg-slate-900/90 border border-emerald-500/30 rounded-xl p-4">
+            <div class="text-sm font-extrabold text-emerald-300 mb-1">③ Pick &amp; Switch Lab Templates</div>
+            <p class="text-xs text-slate-300">Assign Cybersecurity to Morning Batch A and Robotics to Afternoon Batch B in seconds.</p>
+          </div>
+          <div class="bg-slate-900/90 border border-amber-500/30 rounded-xl p-4">
+            <div class="text-sm font-extrabold text-amber-300 mb-1">④ Control Exam Network Restrictions</div>
+            <p class="text-xs text-slate-300">Enable strict exam lockdown to block external web and student-to-student traffic during tests.</p>
+          </div>
+        </div>
+      </div>
+
+      <footer class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-800">
+        <span>Built for HODs and Lab Instructors · Zero Linux CLI knowledge required</span>
+        <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="text-amber-400 font-bold hover:underline">See Educator Portal → vm.curiosity4u.in/welcome</a>
+        <span>Page 08 / 12</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 9: SCALES TO YOUR TIMETABLE (LIGHT — INTERACTIVE CAPACITY SIMULATOR) -->
+    <section id="bpage-9" data-page-num="9" class="brochure-page theme-light">
+      <header class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-sky-500/10 text-sky-700 border border-sky-500/30">09 · Scales to Your Timetable</span>
+          <h2 class="text-3xl sm:text-4xl font-black mt-2 text-slate-900">Size capacity to your timetable, <span class="grad-light">not headcount.</span></h2>
+        </div>
+        <div class="flex gap-2">
+          <span class="px-3 py-1.5 rounded-full text-xs font-extrabold bg-slate-900 text-cyan-300">🏢 On-Premise at Your Campus</span>
+          <span class="px-3 py-1.5 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800">🔒 Data Stays on Campus</span>
+        </div>
+      </header>
+
+      <div class="my-auto py-4 space-y-5">
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div>
+              <div class="text-sm font-extrabold text-slate-900">Interactive Timetable Capacity Visualizer (10:00 AM – 4:00 PM)</div>
+              <div class="text-xs text-slate-500">Select your concurrent lab size to see how many total students one campus server supports daily:</div>
+            </div>
+            <div class="no-print flex items-center gap-2 text-xs">
+              <button data-seats="30" class="seat-btn px-3 py-1.5 rounded-lg bg-sky-600 text-white font-bold">30 Concurrent</button>
+              <button data-seats="60" class="seat-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-bold hover:bg-slate-200">60 Concurrent</button>
+              <button data-seats="120" class="seat-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-bold hover:bg-slate-200">120 Concurrent</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl bg-sky-50 border-l-4 border-sky-600">
+              <div class="text-xs font-mono font-bold text-sky-700">10:00 AM – 12:00 PM</div>
+              <div class="font-extrabold text-base text-slate-900 mt-1">Batch A · CSE Programming</div>
+              <div class="text-xs text-slate-600 mt-1"><span class="seat-count font-bold">30</span> Concurrent Sessions · GCC, Python, VS Code</div>
+            </div>
+            <div class="p-4 rounded-xl bg-violet-50 border-l-4 border-violet-600">
+              <div class="text-xs font-mono font-bold text-violet-700">12:00 PM – 02:00 PM</div>
+              <div class="font-extrabold text-base text-slate-900 mt-1">Batch B · Cybersecurity Lab</div>
+              <div class="text-xs text-slate-600 mt-1"><span class="seat-count font-bold">30</span> Concurrent Sessions · Same Server Recycled</div>
+            </div>
+            <div class="p-4 rounded-xl bg-emerald-50 border-l-4 border-emerald-600">
+              <div class="text-xs font-mono font-bold text-emerald-700">02:00 PM – 04:00 PM</div>
+              <div class="font-extrabold text-base text-slate-900 mt-1">Batch C · Robotics &amp; Drone</div>
+              <div class="text-xs text-slate-600 mt-1"><span class="seat-count font-bold">30</span> Concurrent Sessions · Instant Template Switch</div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between text-xs font-bold text-slate-700">
+            <span>Active Hardware Provisioned: <strong id="active-seats-lbl" class="text-sky-700">Only 30 Concurrent Sessions</strong></span>
+            <span>Total Students Served Daily (3 Slots): <strong id="total-students-lbl" class="text-emerald-700">90 Students / Day (450+ / Week)</strong></span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+            <h3 class="font-extrabold text-sky-700 text-base mb-1">Pay for Concurrent Need Only</h3>
+            <p class="text-xs text-slate-600">If 30 students attend a lab period at a time, you size for 30 concurrent sessions—never paying for 500 idle seats.</p>
+          </div>
+          <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+            <h3 class="font-extrabold text-violet-700 text-base mb-1">Deployed On-Premise at Your Campus</h3>
+            <p class="text-xs text-slate-600">Runs inside your campus server room over LAN. Zero internet lag and 100% of student data stays on campus.</p>
+          </div>
+          <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+            <h3 class="font-extrabold text-emerald-700 text-base mb-1">Expand Capacity Anytime</h3>
+            <p class="text-xs text-slate-600">Adding new afternoon sections or exam halls? Scale concurrent sessions smoothly as your timetable grows.</p>
+          </div>
+        </div>
+      </div>
+
+      <footer class="flex items-center justify-between text-xs text-slate-600 pt-3 border-t border-slate-300">
+        <span>Example: 30 concurrent sessions, 10 AM to 4 PM · On-premise deployment</span>
+        <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="text-amber-600 font-bold hover:underline">Test live performance → vm.curiosity4u.in/welcome</a>
+        <span>Page 09 / 12</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 10: SECURITY & EXAM INTEGRITY (DARK) -->
+    <section id="bpage-10" data-page-num="10" class="brochure-page theme-dark">
+      <header class="flex items-center justify-between">
+        <div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">10 · Security &amp; Exam Integrity</span>
+          <h2 class="text-3xl sm:text-4xl font-black mt-2 text-white">Built for strict, <span class="grad-cyan">cheat-proof practical exams.</span></h2>
+        </div>
+        <img src="logo_dark_clean.png" alt="Curiosity4U" class="h-11 w-auto">
+      </header>
+
+      <div class="my-auto py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-slate-900/90 border border-cyan-500/30 rounded-2xl p-6 flex gap-4 items-start">
+          <div class="w-11 h-11 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-xl shrink-0">🛡️</div>
+          <div>
+            <h3 class="text-lg font-extrabold text-white mb-1">1. Isolated Container Sessions</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">Every student runs inside a dedicated, resource-capped Linux container. Zero shared folders or visibility into other students' workspaces.</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/90 border border-violet-500/30 rounded-2xl p-6 flex gap-4 items-start">
+          <div class="w-11 h-11 rounded-xl bg-violet-500/20 text-violet-300 flex items-center justify-center text-xl shrink-0">🔒</div>
+          <div>
+            <h3 class="text-lg font-extrabold text-white mb-1">2. Kernel Network Sandboxing</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">Host-level <code>iptables</code> rules block lateral container-to-container packets—stopping LAN chat, local file transfers, or SSH copying.</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/90 border border-amber-500/30 rounded-2xl p-6 flex gap-4 items-start">
+          <div class="w-11 h-11 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-xl shrink-0">🚫</div>
+          <div>
+            <h3 class="text-lg font-extrabold text-white mb-1">3. One-Click Internet Lockdown</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">Disable external web browsing and AI tools during practical exams while keeping compilers, IDEs, and the local portal active.</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/90 border border-emerald-500/30 rounded-2xl p-6 flex gap-4 items-start">
+          <div class="w-11 h-11 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-xl shrink-0">🧹</div>
+          <div>
+            <h3 class="text-lg font-extrabold text-white mb-1">4. Automatic Post-Exam Wipe</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">In non-persistent exam mode, containers self-destruct when the timer ends—leaving zero code behind for the next exam shift.</p>
+          </div>
+        </div>
+      </div>
+
+      <footer class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-800">
+        <span>Zero third-party locking plugins required</span>
+        <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="text-amber-400 font-bold hover:underline">Test isolated lab → vm.curiosity4u.in/welcome</a>
+        <span>Page 10 / 12</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 11: PILOT PROGRAM (LIGHT) -->
+    <section id="bpage-11" data-page-num="11" class="brochure-page theme-light">
+      <header class="flex items-center justify-between">
+        <div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-sky-500/10 text-sky-700 border border-sky-500/30">11 · 4-Day Pilot Program</span>
+          <h2 class="text-3xl sm:text-4xl font-black mt-2 text-slate-900">Try it with a real class <span class="grad-light">in four days.</span></h2>
+        </div>
+        <img src="logo_dark_clean.png" alt="Curiosity4U" class="h-11 w-auto">
+      </header>
+
+      <div class="my-auto py-4 space-y-6">
+        <p class="text-sm text-slate-700 max-w-2xl">
+          Low risk. Zero disruption to your current classes. Validate Curiosity4U with your faculty and students before making any infrastructure commitment.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white rounded-xl p-5 border-t-4 border-sky-600 shadow-sm">
+            <div class="text-xs font-mono font-extrabold text-sky-600 mb-1">DAY 01</div>
+            <h3 class="text-lg font-extrabold text-slate-900 mb-1">Discovery</h3>
+            <p class="text-xs text-slate-600">15-minute alignment with your HOD to pick one target subject, lab template, and batch size.</p>
+          </div>
+          <div class="bg-white rounded-xl p-5 border-t-4 border-violet-600 shadow-sm">
+            <div class="text-xs font-mono font-extrabold text-violet-600 mb-1">DAY 02</div>
+            <h3 class="text-lg font-extrabold text-slate-900 mb-1">Setup</h3>
+            <p class="text-xs text-slate-600">We configure your on-premise pilot node or instant cloud sandbox with your syllabus tools.</p>
+          </div>
+          <div class="bg-white rounded-xl p-5 border-t-4 border-amber-500 shadow-sm">
+            <div class="text-xs font-mono font-extrabold text-amber-600 mb-1">DAY 03</div>
+            <h3 class="text-lg font-extrabold text-slate-900 mb-1">Onboarding</h3>
+            <p class="text-xs text-slate-600">Bulk-import your student roster and walk your lab instructor through the Admin Control Panel.</p>
+          </div>
+          <div class="bg-white rounded-xl p-5 border-t-4 border-emerald-600 shadow-sm">
+            <div class="text-xs font-mono font-extrabold text-emerald-600 mb-1">DAY 04</div>
+            <h3 class="text-lg font-extrabold text-slate-900 mb-1">Live Class Trial</h3>
+            <p class="text-xs text-slate-600">Run a full practical period in the browser and review student and faculty feedback.</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 text-white rounded-2xl p-6 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div class="text-lg font-extrabold text-cyan-400">Want to test it in your browser right now?</div>
+            <div class="text-xs text-slate-300">Our live demo portal is active 24/7—launch a sample session in seconds.</div>
+          </div>
+          <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs">
+            Open Live Demo → vm.curiosity4u.in/welcome
+          </a>
+        </div>
+      </div>
+
+      <footer class="flex items-center justify-between text-xs text-slate-600 pt-3 border-t border-slate-300">
+        <span>4-Day Turnkey Campus Trial · Zero Hardware Risk</span>
+        <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="text-amber-600 font-bold hover:underline">https://vm.curiosity4u.in/welcome</a>
+        <span>Page 11 / 12</span>
+      </footer>
+    </section>
+
+    <!-- PAGE 12: BACK COVER / CTA (DARK) -->
+    <section id="bpage-12" data-page-num="12" class="brochure-page theme-dark">
+      <header class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img src="logo_white_clean.png" alt="Curiosity4U Logo" class="h-14 w-auto">
+          <div>
+            <div class="font-black text-lg tracking-wider text-white">CURIOSITY4U</div>
+            <div class="text-xs text-cyan-400 italic">Your Curiosity, Our Solutions</div>
+          </div>
+        </div>
+        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
+          12 · Get Started
+        </span>
+      </header>
+
+      <div class="my-auto py-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-5">
+          <h2 class="text-4xl sm:text-5xl font-black text-white leading-tight">
+            Try it <span class="grad-cyan">right now.</span>
+          </h2>
+          <p class="text-slate-300 text-base max-w-xl">
+            Scan the QR code or click below on your laptop, tablet, or phone to launch a live browser-based virtual lab in seconds.
+          </p>
+
+          <div>
+            <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="inline-block px-7 py-3.5 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-base shadow-lg shadow-amber-500/25 transition">
+              https://vm.curiosity4u.in/welcome
+            </a>
+          </div>
+
+          <div class="bg-slate-900/90 border border-cyan-500/30 rounded-2xl p-5 space-y-3">
+            <div class="text-xs font-extrabold uppercase tracking-wider text-cyan-400">
+              Book a 4-Day Campus Pilot or Custom Demo
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div>
+                <span class="text-slate-400 block">Contact Name:</span>
+                <strong class="text-white text-sm" data-bind="contact-name">Om Khare</strong>
+              </div>
+              <div>
+                <span class="text-slate-400 block">Phone / WhatsApp:</span>
+                <strong class="text-white text-sm mono" data-bind="contact-phone">+91 9588-654-379</strong>
+              </div>
+              <div>
+                <span class="text-slate-400 block">Email Address:</span>
+                <strong class="text-white text-sm mono break-words" data-bind="contact-email">weatcuriosity@gmail.com or outreach@curiosity4u.in</strong>
+              </div>
+              <div>
+                <span class="text-slate-400 block">Website:</span>
+                <strong class="text-cyan-300 text-sm mono" data-bind="contact-web">www.curiosity4u.in</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 flex flex-col items-center justify-center">
+          <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="bg-slate-900/95 border-2 border-cyan-400 rounded-2xl p-6 text-center shadow-2xl hover:border-amber-400 transition">
+            <img src="qr_demo.png" alt="Live Demo QR Code" class="w-44 h-44 bg-white p-2 rounded-xl mx-auto block">
+            <div class="text-sm font-black uppercase tracking-wider text-amber-400 mt-3">SCAN FOR LIVE DEMO</div>
+            <div class="text-xs font-mono text-slate-200 mt-1">vm.curiosity4u.in/welcome</div>
+          </a>
+        </div>
+      </div>
+
+      <footer class="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-slate-800">
+        <span>© Curiosity4U · "Your Curiosity, Our Solutions"</span>
+        <span>Every lab. Every student. Any device. Ready in seconds.</span>
+        <span>Page 12 / 12</span>
+      </footer>
+    </section>
+
+  </main>
+
+  <script>
+    (function() {
+      let deckMode = false;
+      let currentSlide = 1;
+      const totalSlides = 12;
+
+      const pages = Array.from(document.querySelectorAll('.brochure-page'));
+      const tocBtns = Array.from(document.querySelectorAll('.toc-btn'));
+      const toggleModeBtn = document.getElementById('toggle-mode-btn');
+      const deckControls = document.getElementById('deck-controls');
+      const prevBtn = document.getElementById('prev-slide-btn');
+      const nextBtn = document.getElementById('next-slide-btn');
+      const indicator = document.getElementById('slide-indicator');
+
+      function updateActiveToc(pageNum) {
+        tocBtns.forEach(btn => {
+          const p = parseInt(btn.getAttribute('data-page'), 10);
+          if (p === pageNum) {
+            btn.className = 'toc-btn px-2.5 py-1 rounded-full bg-cyan-500 text-slate-950 font-bold';
+          } else {
+            btn.className = 'toc-btn px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700';
+          }
+        });
+      }
+
+      function renderDeckState() {
+        if (deckMode) {
+          deckControls.classList.remove('hidden');
+          toggleModeBtn.textContent = 'Scroll All Pages';
+          pages.forEach(p => {
+            const num = parseInt(p.getAttribute('data-page-num'), 10);
+            p.style.display = (num === currentSlide) ? 'flex' : 'none';
+          });
+          indicator.textContent = 'Page ' + String(currentSlide).padStart(2, '0') + ' / 12';
+          updateActiveToc(currentSlide);
+        } else {
+          deckControls.classList.add('hidden');
+          toggleModeBtn.textContent = 'Slide Deck Mode';
+          pages.forEach(p => {
+            p.style.display = 'flex';
+          });
+        }
+      }
+
+      tocBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const target = parseInt(this.getAttribute('data-page'), 10);
+          currentSlide = target;
+          if (deckMode) {
+            renderDeckState();
+          } else {
+            const el = document.getElementById('bpage-' + target);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            updateActiveToc(target);
+          }
+        });
+      });
+
+      toggleModeBtn.addEventListener('click', function() {
+        deckMode = !deckMode;
+        renderDeckState();
+      });
+
+      prevBtn.addEventListener('click', function() {
+        currentSlide = currentSlide > 1 ? currentSlide - 1 : totalSlides;
+        renderDeckState();
+      });
+
+      nextBtn.addEventListener('click', function() {
+        currentSlide = currentSlide < totalSlides ? currentSlide + 1 : 1;
+        renderDeckState();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (!deckMode) return;
+        if (e.key === 'ArrowRight') {
+          currentSlide = currentSlide < totalSlides ? currentSlide + 1 : 1;
+          renderDeckState();
+        } else if (e.key === 'ArrowLeft') {
+          currentSlide = currentSlide > 1 ? currentSlide - 1 : totalSlides;
+          renderDeckState();
+        }
+      });
+
+      // Tap toggle for Template Marketplace cards on touch screens
+      document.querySelectorAll('.template-card').forEach(card => {
+        card.addEventListener('click', function() {
+          this.classList.toggle('active');
+        });
+      });
+
+      // Interactive Timetable Capacity Simulator (Page 9)
+      const seatBtns = Array.from(document.querySelectorAll('.seat-btn'));
+      const seatCounts = Array.from(document.querySelectorAll('.seat-count'));
+      const activeSeatsLbl = document.getElementById('active-seats-lbl');
+      const totalStudentsLbl = document.getElementById('total-students-lbl');
+
+      seatBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const seats = parseInt(this.getAttribute('data-seats'), 10);
+          seatBtns.forEach(b => {
+            b.className = 'seat-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-bold hover:bg-slate-200';
+          });
+          this.className = 'seat-btn px-3 py-1.5 rounded-lg bg-sky-600 text-white font-bold';
+          seatCounts.forEach(s => { s.textContent = seats; });
+          activeSeatsLbl.textContent = 'Only ' + seats + ' Concurrent Sessions';
+          const daily = seats * 3;
+          const weekly = daily * 5;
+          totalStudentsLbl.textContent = daily + ' Students / Day (' + weekly + '+ / Week)';
+        });
+      });
+
+      // Live Placeholder Editor Drawer
+      const editorDrawer = document.getElementById('editor-drawer');
+      document.getElementById('open-editor-btn').addEventListener('click', function() {
+        editorDrawer.classList.remove('hidden');
+      });
+      document.getElementById('close-editor-btn').addEventListener('click', function() {
+        editorDrawer.classList.add('hidden');
+      });
+
+      function applyPlaceholders() {
+        const map = {
+          'base-price': document.getElementById('inp-base-price').value,
+          'extra-price': document.getElementById('inp-extra-price').value,
+          'contact-name': document.getElementById('inp-contact-name').value,
+          'contact-phone': document.getElementById('inp-contact-phone').value,
+          'contact-email': document.getElementById('inp-contact-email').value,
+          'contact-web': document.getElementById('inp-contact-web').value,
+        };
+        Object.keys(map).forEach(k => {
+          document.querySelectorAll('[data-bind="' + k + '"]').forEach(el => {
+            el.textContent = map[k];
+          });
+        });
+      }
+
+      document.getElementById('apply-editor-btn').addEventListener('click', function() {
+        applyPlaceholders();
+        editorDrawer.classList.add('hidden');
+      });
+
+      document.getElementById('reset-editor-btn').addEventListener('click', function() {
+        document.getElementById('inp-base-price').value = '[Base Price / Student]';
+        document.getElementById('inp-extra-price').value = '[+ Extra Cost / Student]';
+        document.getElementById('inp-contact-name').value = 'Om Khare';
+        document.getElementById('inp-contact-phone').value = '+91 9588-654-379';
+        document.getElementById('inp-contact-email').value = 'weatcuriosity@gmail.com or outreach@curiosity4u.in';
+        document.getElementById('inp-contact-web').value = 'www.curiosity4u.in';
+        applyPlaceholders();
+      });
+
+      // Auto-trigger print if ?print=1 in URL
+      if (new URLSearchParams(window.location.search).get('print') === '1') {
+        window.addEventListener('DOMContentLoaded', function() {
+          setTimeout(function() {
+            window.focus();
+            window.print();
+          }, 350);
+        });
+      }
+
+      // Print button handler
+      document.getElementById('print-btn').addEventListener('click', function() {
+        const wasDeck = deckMode;
+        if (deckMode) {
+          pages.forEach(p => { p.style.display = 'flex'; });
+        }
+        window.focus();
+        setTimeout(function() {
+          try {
+            window.print();
+          } catch (e) {
+            window.open(window.location.href + (window.location.search ? '&' : '?') + 'print=1', '_blank');
+          }
+          if (wasDeck) {
+            setTimeout(function() {
+              renderDeckState();
+            }, 600);
+          }
+        }, 80);
+      });
+
+      window.addEventListener('beforeprint', function() {
+        pages.forEach(p => { p.style.display = 'flex'; });
+      });
+
+      window.addEventListener('afterprint', function() {
+        if (deckMode) {
+          renderDeckState();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

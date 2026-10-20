@@ -1,0 +1,41 @@
+{
+  "brand": {
+    "name": "Curiosity4U",
+    "product": "Curiosity4U Virtual Lab",
+    "tagline": "Your Curiosity, Our Solutions",
+    "liveDemoUrl": "https://vm.curiosity4u.in/welcome"
+  },
+  "designSystem": {
+    "aesthetic": "MANG Keynote (Apple / Google Cloud / NVIDIA)",
+    "canvasSize": {
+      "printLandscape": "279.4mm x 215.9mm (US Letter Landscape with Full Bleed)",
+      "interactiveWeb": "1200px x 675px (16:9 Widescreen)"
+    },
+    "colorPalette": {
+      "darkBase": "#070B14",
+      "darkSurface": "#0F172A",
+      "darkCard": "#131D33",
+      "lightBase": "#EEF2F6",
+      "lightCard": "#FFFFFF",
+      "accentCyan": "#00E5FF",
+      "accentSky": "#0284C7",
+      "accentViolet": "#7C3AED",
+      "ctaAmber": "#F59E0B",
+      "statusEmerald": "#10B981",
+      "statusRose": "#F43F5E"
+    },
+    "typography": {
+      "headingFont": "Inter (800 / 900 ExtraBold & Black, -0.03em tracking)",
+      "bodyFont": "Inter (400 / 500 / 600)",
+      "monoFont": "JetBrains Mono (500 / 700 for CLI commands & tool chips)"
+    }
+  },
+  "placeholders": [
+    { "key": "base-price", "token": "[Base Price / Student]", "page": 7 },
+    { "key": "extra-price", "token": "[+ Extra Cost / Student]", "page": 7 },
+    { "key": "contact-name", "token": "Om Khare", "page": 12 },
+    { "key": "contact-phone", "token": "+91 9588-654-379", "page": 12 },
+    { "key": "contact-email", "token": "weatcuriosity@gmail.com or outreach@curiosity4u.in", "page": 12 },
+    { "key": "contact-web", "token": "www.curiosity4u.in", "page": 12 }
+  ]
+}
