@@ -1,6 +1,6 @@
 # Curiosity4U Virtual Lab — Brochure Placeholders & Customization Checklist
 
-Before circulating the brochure to college principals, HODs, or school directors, replace the following bracketed placeholders (either directly using the **✎ Edit Placeholders** button inside the Interactive HTML Brochure, or in the source HTML):
+Before circulating the brochure to college principals, HODs, or school directors, replace the following bracketed placeholders in the source HTML or templates:
 
 | # | Placeholder Token | Page Location | Recommended Format / Example |
 | :- | :--- | :--- | :--- |

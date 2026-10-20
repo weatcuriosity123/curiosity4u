@@ -191,9 +191,6 @@
         <button id="toggle-mode-btn" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-cyan-300 border border-cyan-500/30">
           Slide Deck Mode
         </button>
-        <button id="open-editor-btn" class="px-3 py-1.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-xs font-bold text-white">
-          ✎ Edit Placeholders
-        </button>
         <button id="print-btn" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-xs font-extrabold text-slate-950 flex items-center gap-1.5 shadow-md">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
           Print / PDF
@@ -215,58 +212,7 @@
     </div>
   </div>
 
-  <!-- ===================================================================
-       LIVE PLACEHOLDER CUSTOMIZATION DRAWER
-       =================================================================== -->
-  <div id="editor-drawer" class="no-print hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-end">
-    <div class="bg-slate-900 border-l border-cyan-500/30 w-full max-w-md h-full p-6 overflow-y-auto flex flex-col justify-between">
-      <div>
-        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-          <div>
-            <h3 class="text-lg font-extrabold text-white">Customize Brochure Placeholders</h3>
-            <p class="text-xs text-slate-400">Updates apply live across all 12 pages before printing or sharing.</p>
-          </div>
-          <button id="close-editor-btn" class="text-slate-400 hover:text-white text-xl font-bold px-2">✕</button>
-        </div>
 
-        <div class="space-y-4 mt-5 text-xs">
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Non-Persistent Base Price (Page 7)</label>
-            <input id="inp-base-price" type="text" value="[Base Price / Student]" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono">
-          </div>
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Persistent Storage Upgrade Price (Page 7)</label>
-            <input id="inp-extra-price" type="text" value="[+ Extra Cost / Student]" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono">
-          </div>
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Contact Person (Page 12)</label>
-            <input id="inp-contact-name" type="text" value="Om Khare" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white">
-          </div>
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Phone / WhatsApp Number (Page 12)</label>
-            <input id="inp-contact-phone" type="text" value="+91 9588-654-379" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white">
-          </div>
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Official Email Address (Page 12)</label>
-            <input id="inp-contact-email" type="text" value="weatcuriosity@gmail.com or outreach@curiosity4u.in" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white">
-          </div>
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Company Website (Page 12)</label>
-            <input id="inp-contact-web" type="text" value="www.curiosity4u.in" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white">
-          </div>
-        </div>
-      </div>
-
-      <div class="pt-4 border-t border-slate-800 flex gap-3">
-        <button id="apply-editor-btn" class="flex-1 py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold text-xs">
-          ✓ Apply Live Changes
-        </button>
-        <button id="reset-editor-btn" class="px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs">
-          Reset
-        </button>
-      </div>
-    </div>
-  </div>
 
   <!-- ===================================================================
        MAIN 12-PAGE BROCHURE CONTAINER
@@ -826,7 +772,7 @@
       </div>
 
       <footer class="flex items-center justify-between text-xs text-slate-600 pt-3 border-t border-slate-300">
-        <span>Click "Edit Placeholders" in the top bar to insert your custom institutional pricing.</span>
+        <span>Mix both storage plans across different classrooms on the same server.</span>
         <a href="https://vm.curiosity4u.in/welcome" target="_blank" rel="noopener noreferrer" class="text-amber-600 font-bold hover:underline">Test both modes → vm.curiosity4u.in/welcome</a>
         <span>Page 07 / 12</span>
       </footer>
@@ -1248,45 +1194,7 @@
         });
       });
 
-      // Live Placeholder Editor Drawer
-      const editorDrawer = document.getElementById('editor-drawer');
-      document.getElementById('open-editor-btn').addEventListener('click', function() {
-        editorDrawer.classList.remove('hidden');
-      });
-      document.getElementById('close-editor-btn').addEventListener('click', function() {
-        editorDrawer.classList.add('hidden');
-      });
 
-      function applyPlaceholders() {
-        const map = {
-          'base-price': document.getElementById('inp-base-price').value,
-          'extra-price': document.getElementById('inp-extra-price').value,
-          'contact-name': document.getElementById('inp-contact-name').value,
-          'contact-phone': document.getElementById('inp-contact-phone').value,
-          'contact-email': document.getElementById('inp-contact-email').value,
-          'contact-web': document.getElementById('inp-contact-web').value,
-        };
-        Object.keys(map).forEach(k => {
-          document.querySelectorAll('[data-bind="' + k + '"]').forEach(el => {
-            el.textContent = map[k];
-          });
-        });
-      }
-
-      document.getElementById('apply-editor-btn').addEventListener('click', function() {
-        applyPlaceholders();
-        editorDrawer.classList.add('hidden');
-      });
-
-      document.getElementById('reset-editor-btn').addEventListener('click', function() {
-        document.getElementById('inp-base-price').value = '[Base Price / Student]';
-        document.getElementById('inp-extra-price').value = '[+ Extra Cost / Student]';
-        document.getElementById('inp-contact-name').value = 'Om Khare';
-        document.getElementById('inp-contact-phone').value = '+91 9588-654-379';
-        document.getElementById('inp-contact-email').value = 'weatcuriosity@gmail.com or outreach@curiosity4u.in';
-        document.getElementById('inp-contact-web').value = 'www.curiosity4u.in';
-        applyPlaceholders();
-      });
 
       // Auto-trigger print if ?print=1 in URL
       if (new URLSearchParams(window.location.search).get('print') === '1') {
