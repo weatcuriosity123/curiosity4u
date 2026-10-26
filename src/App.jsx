@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import {
   Telescope, Rocket, BookOpen, Users, Star, Mail, Phone, MapPin,
   ArrowRight, ChevronRight, Zap, Shield, TrendingUp, MessageCircle,
   Globe, Code2, ShoppingBag, Cpu, Award, Heart, Sparkles,
   FlaskConical, Landmark, GraduationCap, Lightbulb, Target,
+  Menu, X,
 } from 'lucide-react';
 import PraviPage from './PraviPage.jsx';
 import WebDevPage from './WebDevPage.jsx';
 import VAPTPage from './VAPTPage.jsx';
 import VMBroucherPage from './VMBroucherPage.jsx';
+import SarthiPage from './SarthiPage.jsx';
 import './index.css';
 
 /* ─── ICON HELPER ─── */
@@ -44,6 +46,19 @@ const SERVICES = [
     isInternal: true,
   },
   {
+    badge: 'Virtual Labs · Flagship',
+    Icon: Cpu,
+    iconBg: 'rgba(0,229,255,0.15)',
+    color: '#00e5ff',
+    title: 'SARTHI',
+    description: 'Your trusted guide to seamless virtual computing labs. Browser-based Linux desktops and engineering workspaces with zero local setup.',
+    tags: ['Virtual Computing', 'Linux Desktops', 'Zero Setup', 'Interactive Labs'],
+    glow: 'rgba(0,229,255,0.16)',
+    link: '/sarthi',
+    isInternal: true,
+  },
+  /* ── Preserved Vajra cybersecurity platform (commented out in active nav per user specification) ──
+  {
     badge: 'Cybersecurity',
     Icon: Shield,
     iconBg: 'rgba(220,38,38,0.15)',
@@ -55,18 +70,7 @@ const SERVICES = [
     link: '/vapt',
     isInternal: true,
   },
-  {
-    badge: 'Virtual Lab · Deck',
-    Icon: Cpu,
-    iconBg: 'rgba(0,229,255,0.15)',
-    color: '#00e5ff',
-    title: 'Virtual Lab (VM)',
-    description: 'Transform legacy computer labs into modern cloud workstations. Interactive brochure and pitch deck for colleges, schools, and institutions.',
-    tags: ['Interactive Brochure', 'Browser Virtual Lab', 'ROS 2 & Linux', 'Zero Hardware Cost'],
-    glow: 'rgba(0,229,255,0.12)',
-    link: '/VMBroucher',
-    isInternal: true,
-  },
+  */
 ];
 
 const TESTIMONIALS = [
@@ -149,6 +153,8 @@ const FOUNDERS = [
 /* ─── NAVBAR ─── */
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handler);
@@ -158,17 +164,61 @@ function Navbar() {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container navbar-inner">
-        <a href="#" className="logo" style={{ display: 'flex', alignItems: 'center' }}>
+        <a href="/" className="logo" style={{ display: 'flex', alignItems: 'center' }}>
           <img src="/logo/Curiosity logo nobg.png" alt="Curiosity4u Logo" style={{ height: '80px', objectFit: 'contain' }} />
         </a>
+        
+        {/* Desktop Links */}
         <ul className="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#solutions">Solutions</a></li>
-          <li><a href="/VMBroucher">VM Brochure</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#solutions">Platforms</a></li>
           {/* <li><a href="#team">Team</a></li> */}
-          <li><a href="#contact" className="nav-cta">Contact Us</a></li>
+          <li><a href="/#contact" className="nav-cta">Contact Us</a></li>
         </ul>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="mobile-menu-btn"
+          style={{
+            background: 'none',
+            border: '1px solid var(--border)',
+            color: 'var(--text)',
+            padding: '8px',
+            borderRadius: '8px',
+            cursor: 'pointer',
+          }}
+          aria-label="Toggle navigation menu"
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
+
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <div
+          style={{
+            background: 'rgba(9, 11, 20, 0.98)',
+            backdropFilter: 'blur(20px)',
+            borderBottom: '1px solid var(--border)',
+            padding: '1.5rem 2rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1.25rem',
+          }}
+        >
+          <a href="/#about" onClick={() => setMobileMenuOpen(false)} style={{ color: 'var(--text)', fontSize: '1rem' }}>About</a>
+          <a href="/#solutions" onClick={() => setMobileMenuOpen(false)} style={{ color: 'var(--text)', fontSize: '1rem' }}>Platforms</a>
+          <a
+            href="/#contact"
+            onClick={() => setMobileMenuOpen(false)}
+            className="btn btn-primary"
+            style={{ width: '100%', justifyContent: 'center' }}
+          >
+            Contact Us
+          </a>
+        </div>
+      )}
     </nav>
   );
 }
@@ -588,8 +638,12 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/sarthi" element={<SarthiPage />} />
+      {/* Permanent redirect from /vajra to /sarthi per SEO / migration requirements */}
+      <Route path="/vajra" element={<Navigate to="/sarthi" replace />} />
       <Route path="/pravi" element={<PraviPage />} />
       <Route path="/webdev" element={<WebDevPage />} />
+      {/* Vajra / VAPT page preserved */}
       <Route path="/vapt" element={<VAPTPage />} />
       <Route path="/VMBroucher" element={<VMBroucherPage />} />
       <Route path="/vmbroucher" element={<VMBroucherPage />} />
