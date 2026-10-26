@@ -12,5 +12,5 @@ Before circulating the brochure to college principals, HODs, or school directors
 | 6 | `www.curiosity4u.in` | **Page 12** (Back Cover Contact Card) | Company Website |
 
 ## Pre-Configured Live Links (Already Embedded & Scannable)
-- **Primary Call to Action & QR Code Target**: `https://vm.curiosity4u.in/welcome` (Embedded on Page 01 Cover, Page 12 Back Cover, and footer micro-CTAs across Pages 02–11).
+- **Primary Call to Action & QR Code Target**: `https://labs.curiosity4u.in/welcome` (Embedded on Page 01 Cover, Page 12 Back Cover, and footer micro-CTAs across Pages 02–11).
 - **Open-Core Technical Reference**: `https://github.com/weatcuriosity123/Virtual_Lab_Setup` (Footer reference on Page 12).
