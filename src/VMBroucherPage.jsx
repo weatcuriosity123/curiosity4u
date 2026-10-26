@@ -21,7 +21,7 @@ export default function VMBroucherPage() {
         } catch {
           // Fallback
         }
-        window.open('/VMBroucher/index.html?print=1', '_blank');
+        window.open('/VMBroucher/index.html?print=1&v=labs', '_blank');
       }
     };
 
@@ -45,7 +45,7 @@ export default function VMBroucherPage() {
     >
       <iframe
         ref={iframeRef}
-        src="/VMBroucher/index.html"
+        src="/VMBroucher/index.html?v=labs"
         title="Curiosity4U Virtual Lab Interactive Brochure"
         style={{
           width: '100%',
