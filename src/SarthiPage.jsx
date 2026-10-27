@@ -471,7 +471,7 @@ export default function SarthiPage() {
                     <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#eab308' }} />
                     <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#22c55e' }} />
                     <span style={{ marginLeft: 12, fontSize: '0.8rem', color: 'var(--text-muted)', fontFamily: 'monospace' }}>
-                      sarthi.curiosity4u.in / session / cs-lab-linux
+                      labs.curiosity4u.in / session / cs-lab-linux
                     </span>
                   </div>
                   <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', color: '#34d399', background: 'rgba(52,211,153,0.1)', padding: '3px 10px', borderRadius: '50px' }}>
