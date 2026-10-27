@@ -18,7 +18,7 @@ export default function SarthiPage() {
   useEffect(() => {
     // SEO Title and Meta Description
     document.title = 'Sarthi by Curiosity4U | Virtual Computing Labs for Education';
-    
+
     let metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute('content', 'Meet Sarthi by Curiosity4U: browser-based virtual computing labs that help students practice, code, and learn while simplifying lab management.');
@@ -200,7 +200,7 @@ export default function SarthiPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg)', color: 'var(--text)', position: 'relative', overflowX: 'hidden' }}>
-      
+
       {/* Ambient Lighting Orbs */}
       <div className="orb orb-blue" style={{ width: '600px', height: '600px', top: '-180px', left: '-200px', opacity: 0.25 }} />
       <div className="orb" style={{ background: 'rgba(0, 229, 255, 0.12)', width: '500px', height: '500px', top: '15%', right: '-150px', filter: 'blur(90px)', position: 'absolute', borderRadius: '50%' }} />
@@ -279,7 +279,7 @@ export default function SarthiPage() {
       <section className="section" style={{ paddingTop: '3.5rem', paddingBottom: '5rem', position: 'relative', zIndex: 1 }}>
         <div className="container">
           <div style={{ maxWidth: '860px', margin: '0 auto', textAlign: 'center' }}>
-            
+
             {/* Eyebrow */}
             <div
               className="section-eyebrow fade-up"
@@ -471,7 +471,7 @@ export default function SarthiPage() {
                     <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#eab308' }} />
                     <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#22c55e' }} />
                     <span style={{ marginLeft: 12, fontSize: '0.8rem', color: 'var(--text-muted)', fontFamily: 'monospace' }}>
-                      labs.curiosity4u.in / session / cs-lab-linux
+                      labs.curiosity4u.in
                     </span>
                   </div>
                   <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', color: '#34d399', background: 'rgba(52,211,153,0.1)', padding: '3px 10px', borderRadius: '50px' }}>
@@ -537,7 +537,7 @@ export default function SarthiPage() {
       {/* ─── SECTION B — THE BHAGAVAD GITA STORY ─── */}
       <section id="gita-story" className="section" style={{ background: 'linear-gradient(180deg, var(--bg) 0%, #080c18 50%, var(--bg) 100%)', position: 'relative', overflow: 'hidden' }}>
         <div className="container">
-          
+
           <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3.5rem auto' }}>
             <span
               className="section-eyebrow fade-up"
@@ -727,7 +727,7 @@ export default function SarthiPage() {
       {/* ─── SECTION C — HOW SARTHI HELPS ─── */}
       <section id="how-it-helps" className="section" style={{ background: 'var(--bg-2)', position: 'relative' }}>
         <div className="container">
-          
+
           <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 3.5rem auto' }}>
             <span className="section-eyebrow fade-up" style={{ color: '#00e5ff', borderColor: 'rgba(0,229,255,0.3)', background: 'rgba(0,229,255,0.08)' }}>
               <Layers size={14} style={{ marginRight: 6, verticalAlign: 'middle' }} />
@@ -800,7 +800,7 @@ export default function SarthiPage() {
       {/* ─── SECTION D — PRODUCT CAPABILITIES ─── */}
       <section id="capabilities" className="section" style={{ position: 'relative' }}>
         <div className="container">
-          
+
           <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3.5rem auto' }}>
             <span className="section-eyebrow fade-up" style={{ color: '#a78bfa', borderColor: 'rgba(167,139,250,0.3)', background: 'rgba(167,139,250,0.08)' }}>
               <Cpu size={14} style={{ marginRight: 6, verticalAlign: 'middle' }} />
@@ -867,7 +867,7 @@ export default function SarthiPage() {
       {/* ─── SECTION E — HOW IT WORKS (TIMELINE) ─── */}
       <section id="workflow" className="section" style={{ background: 'var(--bg-2)', position: 'relative' }}>
         <div className="container">
-          
+
           <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 3.5rem auto' }}>
             <span className="section-eyebrow fade-up" style={{ color: '#34d399', borderColor: 'rgba(52,211,153,0.3)', background: 'rgba(52,211,153,0.08)' }}>
               <Clock size={14} style={{ marginRight: 6, verticalAlign: 'middle' }} />
@@ -930,7 +930,7 @@ export default function SarthiPage() {
       {/* ─── SECTION F — WHY COLLEGES CHOOSE SARTHI ─── */}
       <section className="section" style={{ position: 'relative' }}>
         <div className="container">
-          
+
           <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3.5rem auto' }}>
             <span className="section-eyebrow fade-up" style={{ color: '#fbbf24', borderColor: 'rgba(251,191,36,0.3)', background: 'rgba(251,191,36,0.08)' }}>
               <Shield size={14} style={{ marginRight: 6, verticalAlign: 'middle' }} />
@@ -994,7 +994,7 @@ export default function SarthiPage() {
       {/* ─── SECTION G — FOUR-DAY CAMPUS PILOT ─── */}
       <section id="pilot" className="section" style={{ background: 'var(--bg-2)', position: 'relative' }}>
         <div className="container">
-          
+
           <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 3.5rem auto' }}>
             <span className="section-eyebrow fade-up" style={{ color: '#00e5ff', borderColor: 'rgba(0,229,255,0.3)', background: 'rgba(0,229,255,0.08)' }}>
               <Calendar size={14} style={{ marginRight: 6, verticalAlign: 'middle' }} />
@@ -1021,7 +1021,7 @@ export default function SarthiPage() {
               <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '1.5rem', color: 'var(--text)' }}>
                 Proposed 4-Day Pilot Schedule
               </h3>
-              
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 {pilotDays.map((p, i) => (
                   <div
@@ -1089,7 +1089,7 @@ export default function SarthiPage() {
                 <h3 style={{ fontSize: '1.65rem', fontWeight: 800, marginBottom: '0.85rem', color: 'var(--text)' }}>
                   Interactive VM Brochure &amp; Pilot Guide
                 </h3>
-                
+
                 <p style={{ color: 'var(--text-muted)', fontSize: '1rem', lineHeight: 1.7, marginBottom: '2rem' }}>
                   Explore our complete institutional deck, architecture specs, lab syllabus mapping, and pilot rollout roadmap in our interactive client brochure.
                 </p>
@@ -1157,7 +1157,7 @@ export default function SarthiPage() {
       {/* ─── SECTION H — FINAL CTA ─── */}
       <section className="section" style={{ position: 'relative', overflow: 'hidden' }}>
         <div className="orb orb-blue" style={{ width: '500px', height: '500px', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', opacity: 0.2 }} />
-        
+
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div
             style={{
@@ -1176,7 +1176,7 @@ export default function SarthiPage() {
             >
               Your next great idea starts with the <span style={{ color: '#00e5ff' }}>right environment</span>.
             </h2>
-            
+
             <p
               className="fade-up delay-1"
               style={{
