@@ -8,6 +8,7 @@ export default function PraviPage() {
   useScrollAnimation();
 
   useEffect(() => {
+    document.title = 'Pravi by Curiosity4U | Robotics, Drones & Patents for Champs';
     window.scrollTo(0, 0);
   }, []);
 

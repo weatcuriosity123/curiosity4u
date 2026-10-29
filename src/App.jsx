@@ -589,6 +589,11 @@ function Footer() {
 
 /* ─── HOME PAGE ─── */
 function HomePage() {
+  useEffect(() => {
+    document.title = "Curiosity4U — Igniting the Inquisitive Spirit | Tech & Heritage";
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <Navbar />

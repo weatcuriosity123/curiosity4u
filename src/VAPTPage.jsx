@@ -8,6 +8,7 @@ export default function VAPTPage() {
   useScrollAnimation();
 
   useEffect(() => {
+    document.title = 'Vajra by Curiosity4U | Cybersecurity & Penetration Testing';
     window.scrollTo(0, 0);
   }, []);
 

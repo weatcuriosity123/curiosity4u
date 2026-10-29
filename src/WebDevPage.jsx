@@ -9,6 +9,7 @@ export default function WebDevPage() {
   useScrollAnimation();
 
   useEffect(() => {
+    document.title = 'Vistara by Curiosity4U | Fast, Modern Websites That Convert';
     window.scrollTo(0, 0);
   }, []);
 
