@@ -1299,7 +1299,7 @@ export default function SarthiPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.88rem', color: 'var(--text-muted)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Mail size={16} color="#00e5ff" />
-                  <span>weatcuriosity@gmail.com</span>
+                  <span>labs@curiosity4u.in</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Phone size={16} color="#00e5ff" />

@@ -8,7 +8,7 @@ Before circulating the brochure to college principals, HODs, or school directors
 | 2 | `[+ Extra Cost / Student]` | **Page 07** (Persistent Plan B Card) | e.g., `+ ₹149 / student / semester (1 GB Persistent Home)` |
 | 3 | `Curiosity4u Team` | **Page 12** (Back Cover Contact Card) | Contact Person / Team |
 | 4 | `+91 9175484379` | **Page 12** (Back Cover Contact Card) | Official Phone / WhatsApp |
-| 5 | `weatcuriosity@gmail.com or outreach@curiosity4u.in` | **Page 12** (Back Cover Contact Card) | Contact Email Addresses |
+| 5 | `labs@curiosity4u.in` | **Page 12** (Back Cover Contact Card) | Contact Email Address |
 | 6 | `www.curiosity4u.in` | **Page 12** (Back Cover Contact Card) | Company Website |
 
 ## Pre-Configured Live Links (Already Embedded & Scannable)
